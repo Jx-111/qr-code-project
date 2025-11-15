@@ -35,8 +35,11 @@ def generate():
     img.save(img_io, 'PNG')
     img_io.seek(0)
 
-    # 返回二维码图片
-    return send_file(img_io, mimetype='image/png')
+    # 使用 Flask 的 url_for 动态生成图片的 URL
+    qr_code_url = '/static/qr_codes/' + 'temp.png'
+
+    # 返回二维码图片的 URL 作为 JSON
+    return jsonify({'qr_code_url': qr_code_url})
 
 if __name__ == '__main__':
     app.run(debug=True)
