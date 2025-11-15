@@ -111,11 +111,12 @@
                 if (!response.ok) {
                     throw new Error('生成二维码失败');
                 }
-                return response.json(); // 解析为 JSON
+                return response.blob(); // 解析为二进制图片数据
             })
-            .then(data => {
+            .then(blob => {
+                const imgUrl = URL.createObjectURL(blob);
                 const imgElement = document.createElement('img');
-                imgElement.src = data.qr_code_url;  // 使用返回的二维码 URL
+                imgElement.src = imgUrl;
                 const container = document.getElementById('qrCodeContainer');
                 container.innerHTML = '';  // 清空上一次的二维码
                 container.appendChild(imgElement);
